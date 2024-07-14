@@ -1,0 +1,42 @@
+class ShoppingCart:
+    def __init__(self):
+        self.items = []
+
+    def add_item(self, item_name, price, quantity=1):
+        self.items.append({
+            'name': item_name,
+            'price': price,
+            'quantity': quantity
+        })
+        print(f"Added {quantity} of {item_name} to the cart.")
+
+    def remove_item(self, item_name):
+        for item in self.items:
+            if item['name'] == item_name:
+                self.items.remove(item)
+                print(f"Removed {item_name} from the cart.")
+                break
+        else:
+            print(f"{item_name} not found in the cart.")
+
+    def calculate_total(self):
+        total = sum(item['price'] * item['quantity'] for item in self.items)
+        return total
+
+    def show_cart(self):
+        if not self.items:
+            print("Your shopping cart is empty.")
+        else:
+            print("Your shopping cart contains:")
+            for item in self.items:
+                print(f"{item['quantity']} of {item['name']} at ${item['price']} each")
+            print(f"Total: ${self.calculate_total()}")
+
+# Example usage:
+cart = ShoppingCart()
+cart.add_item("Apple", 0.99, 3)
+cart.add_item("Banana", 0.59, 5)
+cart.remove_item("Apple")
+cart.add_item("Orange", 1.29, 2)
+cart.show_cart()
+print(f"Total price: ${cart.calculate_total()}")
